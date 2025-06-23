@@ -1,0 +1,66 @@
+CREATE DATABASE jdbc_prova;
+USE jdbc_prova;
+
+-- Criação da tabela Pessoa
+CREATE TABLE Pessoa (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Criação da tabela Funcionario
+CREATE TABLE Funcionario (
+    id INT PRIMARY KEY,
+    matricula VARCHAR(4) NOT NULL UNIQUE, -- Ex: F007
+    departamento VARCHAR(50) NOT NULL,
+    CONSTRAINT fk_funcionario_pessoa FOREIGN KEY (id) REFERENCES Pessoa(id)
+);
+
+-- Criação da tabela Projeto
+CREATE TABLE Projeto (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    id_funcionario INT NOT NULL,
+    CONSTRAINT fk_projeto_funcionario FOREIGN KEY (id_funcionario) REFERENCES Funcionario(id)
+);
+
+INSERT INTO Pessoa (nome, email) VALUES
+('Ana Silva', 'ana.silva@email.com'),
+('Bruno Costa', 'bruno.costa@email.com'),
+('Carla Souza', 'carla.souza@email.com'),
+('Daniel Lima', 'daniel.lima@email.com'),
+('Eduarda Alves', 'eduarda.alves@email.com'),
+('Felipe Mendes', 'felipe.mendes@email.com'),
+('Gabriela Rocha', 'gabriela.rocha@email.com'),
+('Henrique Matos', 'henrique.matos@email.com'),
+('Isabela Ferreira', 'isabela.ferreira@email.com'),
+('João Oliveira', 'joao.oliveira@email.com');
+
+INSERT INTO Funcionario (id, matricula, departamento) VALUES
+(1, 'F003', 'Marketing'),
+(2, 'F004', 'Financeiro'),
+(3, 'F005', 'TI'),
+(4, 'F006', 'Comercial'),
+(5, 'F007', 'Marketing'),
+(6, 'F008', 'RH'),
+(7, 'F009', 'TI'),
+(8, 'F010', 'Financeiro'),
+(9, 'F001', 'TI'),
+(10, 'F002', 'RH');
+
+INSERT INTO Projeto (nome, descricao, id_funcionario) VALUES
+('Campanha Q4', 'Campanha de marketing para o quarto trimestre', 1),
+('Relatórios Financeiros', 'Automatização de relatórios mensais', 2),
+('App Mobile', 'Aplicativo para clientes acessarem produtos', 3),
+('Portal Vendas', 'Sistema interno para equipe de vendas', 4),
+('Rebranding 2025', 'Reformulação visual da marca', 5),
+('Onboarding RH', 'Melhoria no processo de integração', 6),
+('Infraestrutura Cloud', 'Migração de serviços para nuvem', 7),
+('Análise de Custos', 'Sistema de análise de gastos e orçamento', 8),
+('Sistema Web', 'Desenvolvimento de um sistema interno para gestão', 9),
+('RH Digital', 'Automação de processos de RH', 10);
+
+SELECT * FROM pessoa;
+SELECT * FROM funcionario;
+SELECT * FROM projeto;
